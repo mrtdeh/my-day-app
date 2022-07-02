@@ -1,0 +1,4 @@
+curl 127.0.0.1:8083/setting/create -X POST -F 'user_id=123123123' -F 'data=testdata'
+curl 127.0.0.1:8083/setting/update -X POST -F 'user_id=23123' -F 'data=123123123123'
+
+curl  127.0.0.1:8083/setting/get/1
