@@ -14,7 +14,10 @@ services:
     volumes:
       - ./data:/var/lib/mysql
   app:
-    image: app/server:0.0.1
+    image: app/server
+    build:
+      context: ../
+      dockerfile: Dockerfile
     links:
       - db
     restart: always
