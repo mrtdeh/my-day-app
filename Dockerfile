@@ -2,9 +2,9 @@ FROM golang:1.18-alpine AS build
 
 WORKDIR /src
 ENV CGO_ENABLED=0
-COPY go.* .
+COPY go.* ./
 RUN go mod download
-COPY . .
+COPY . ./
 RUN --mount=type=cache,target=/root/.cache/go-build \ 
 go build -o /out/app .
 
