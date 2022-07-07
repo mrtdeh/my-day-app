@@ -1,15 +1,16 @@
+FROM golang:1.18-alpine AS build
 
-FROM golang:latest
-LABEL maintainer "mrtdeh"
+WORKDIR /src
+ENV CGO_ENABLED=0
+COPY go.* .
+RUN go mod download
+COPY . .
+RUN --mount=type=cache,target=/root/.cache/go-build \ 
+go build -o /out/app .
 
-
-RUN mkdir /app
-ADD . /app
-WORKDIR /app
-RUN go get
-
-RUN go build -o main .
+FROM scratch AS bin-unix
+COPY --from=build /out/app /
 
 EXPOSE 8080
 
-CMD ["/app/main"]
+CMD ["/app"]
